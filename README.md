@@ -10,3 +10,5 @@ I tweet every time Cisa updates their [Known Exploited Vulnerabilities Catalog](
 I wanted to know when Cisa updates their Known Exploited Vulnerabilities Catalog to quickly learn what vulnerabilites attackers are targetting, thus cisaCatalogBot was born.
 
 cisaCatalogBot will check the catalog every 3 hours for updates to the catalog. For every new vulnerability added to the catalog, cisaCatalogBot will tweet it. 
+
+Read more about me: [Making the cisaCatalogBot](https://adamcysec.github.io/Making-cisaCatalogBot/)
