@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/adamcysec/cisaCatalogBot/main/pics/hacker_bot_3.png" width="150" height="280">
+<img src="https://raw.githubusercontent.com/adamcysec/cisaCatalogBot/main/pics/hacker_bot_3.png" width="450" height="450">
 # cisaCatalogBot
 
 ## Synposis
