@@ -1,4 +1,4 @@
-![](/pics/hacker_bot_3.png)
+![](/pics/hacker_bot_3.png =450x450)
 # cisaCatalogBot
 
 ## Synposis
