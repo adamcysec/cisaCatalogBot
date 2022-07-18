@@ -1,7 +1,7 @@
 <img src="https://raw.githubusercontent.com/adamcysec/cisaCatalogBot/main/pics/hacker_bot_3.png" width="450" height="450">
 
 # cisaCatalogBot
-View me on [Twitter](https://twitter.com/cisaCatalogBot)
+See me on [Twitter](https://twitter.com/cisaCatalogBot)
 
 ## Synposis
 I tweet every time Cisa updates their [Known Exploited Vulnerabilities Catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) 
