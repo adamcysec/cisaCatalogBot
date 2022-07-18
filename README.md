@@ -1,7 +1,7 @@
 # cisaCatalogBot
 
 ## Synposis
-I tweet [I tweet every time Cisa updates their Known Exploited Vulnerabilities Catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) 
+I tweet every time Cisa updates their [Known Exploited Vulnerabilities Catalog](https://www.cisa.gov/known-exploited-vulnerabilities-catalog) 
 
 ## Description
 I wanted to know every time Cisa updates their Known Exploited Vulnerabilities Catalog to quickly learn what vulnerabilites attackers are targetting, thus cisaCatalogBot was born.
