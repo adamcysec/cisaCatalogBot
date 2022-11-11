@@ -2,20 +2,49 @@ from cisa_KEVC import catalog
 from datetime import datetime
 import json
 from twitterlib import twitterlib
+import argparse
+import textwrap
+
+def get_args():
+    parser = argparse.ArgumentParser(
+        description="Tweet every time Cisa updates their Known Exploited Vulnerabilites Catalog",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog=textwrap.dedent('''Examples:
+        python3 cisa_alerts.py
+        python3 cisa_alerts.py --verbose
+        python3 cisa_alerts.py --verbose --whatif
+        python3 cisa_alerts.py -v --whatif
+        ''')
+    )
+
+    parser.add_argument('--whatif', action='store_true', help="run this tool without prompting the user")
+    parser.add_argument('--verbose', '-v', action='store_true', help="print verbose output")
+
+    args = parser.parse_args() # parse arguments
+
+    args_dict = vars(args)
+
+    return args_dict
 
 def main():
+    args = get_args()
+    whatif = args['whatif']
+    verbose = args['verbose']
     cisa = catalog()
 
     # you can send str date in mm/dd/yyyy
     # or a datetime object
     cisa_vulns = cisa.get_catalog_by_date(datetime.today())
-    #cisa_vulns = cisa.get_catalog_by_date('07/12/2022')
+    #cisa_vulns = cisa.get_catalog_by_date('10/28/2022')
     
     # read current db
     db_records = read_db()
     record_cves = []
     for item in db_records['records']:
         record_cves.append(item['cveID'])
+    if verbose:
+        print("database read")
+    
 
     # compare cisa to db to find new vulns
     new_vulns = []
@@ -25,17 +54,35 @@ def main():
             new_vulns.append(vuln)
 
     if new_vulns:
+        if verbose:
+            print("new vulnerabilites found")
+        
         # tweet new vulns
         client = twitterlib()
         
         for record in new_vulns:
             tweet = format_tweet(record)
-            response = client.create_tweet(tweet)
+            if whatif:
+                print("whatif prevented tweet...")
+            else:
+                response = client.create_tweet(tweet)
+                
+            
+            if verbose:
+                print("tweet sent")
 
             # write new observed vulns to the database
             db_records['records'].append(record)
 
-        db_message = write_db(db_records)
+        if whatif:
+            print("whatif prevented database write...")
+            db_message = ""
+        else:
+            db_message = write_db(db_records)
+        
+        if verbose:
+            print("saved vulnerabilites to database")
+        
         print(db_message)
     else:
         print('no new vulnerabilites')
