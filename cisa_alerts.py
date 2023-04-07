@@ -183,7 +183,7 @@ if __name__ == "__main__":
     py_logger.setLevel(logging.INFO)
 
     # configure the handler and formatter as needed
-    py_handler = logging.FileHandler("cisa_alerts'.log", mode='w')
+    py_handler = logging.FileHandler("cisa_alerts.log", mode='w')
     py_formatter = logging.Formatter("%(name)s %(asctime)s %(levelname)s %(message)s")
 
     # add formatter to the handler
