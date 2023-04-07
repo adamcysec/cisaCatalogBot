@@ -4,6 +4,7 @@ import json
 from twitterlib import twitterlib
 import argparse
 import textwrap
+import logging
 
 def get_args():
     parser = argparse.ArgumentParser(
@@ -36,6 +37,8 @@ def main():
     # or a datetime object
     cisa_vulns = cisa.get_catalog_by_date(datetime.today())
     #cisa_vulns = cisa.get_catalog_by_date('10/28/2022')
+    py_logger.info(f"total vulns found: {len(cisa_vulns)}")
+
     
     # read current db
     db_records = read_db()
@@ -54,6 +57,7 @@ def main():
             new_vulns.append(vuln)
 
     if new_vulns:
+        py_logger.info(f"New vulns found: {len(new_vulns)}")
         if verbose:
             print("new vulnerabilites found")
         
@@ -65,9 +69,11 @@ def main():
             if whatif:
                 print("whatif prevented tweet...")
             else:
+                py_logger.info(f"attempting to send vuln tweet name: {record['vulnerabilityName']} | {record['cveID']}")
                 response = client.create_tweet(tweet)
+                py_logger.info(f"tweet response code: {response.status_code}")
                 
-            
+                
             if verbose:
                 print("tweet sent")
 
@@ -172,4 +178,18 @@ def reset_db():
     return db_message
 
 if __name__ == "__main__":
+    # get a custom logger & set the logging level
+    py_logger = logging.getLogger(__name__)
+    py_logger.setLevel(logging.INFO)
+
+    # configure the handler and formatter as needed
+    py_handler = logging.FileHandler("cisa_alerts'.log", mode='w')
+    py_formatter = logging.Formatter("%(name)s %(asctime)s %(levelname)s %(message)s")
+
+    # add formatter to the handler
+    py_handler.setFormatter(py_formatter)
+    
+    # add handler to the logger
+    py_logger.addHandler(py_handler)
+
     main()
